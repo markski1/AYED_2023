@@ -136,6 +136,18 @@ public class ListaEnlazadaGenerica<T> extends ListaGenerica<T> {
 			return true;
 		}
 	}
+	
+	// Ejercicio 2.4.D
+	public boolean agregar(T[] elementos) {
+		boolean todosAgregados = true;
+		
+		for (T elemento : elementos) {
+			if (elemento != null) this.agregarFinal(elemento);
+			else todosAgregados = false;
+		}
+		
+		return todosAgregados;
+	}
 
 	@Override
 	public boolean eliminarEn(int pos) {
