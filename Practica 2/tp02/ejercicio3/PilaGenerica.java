@@ -18,6 +18,7 @@ public class PilaGenerica<T> {
 	}
 	
 	public T desapilar() {
+		if (tope == null) return null;
 		NodoGenerico<T> devolver = tope;
 		tope = tope.getSiguiente();
 		return devolver.getDato();
