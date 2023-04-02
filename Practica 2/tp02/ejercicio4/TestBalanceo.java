@@ -3,7 +3,7 @@ package tp02.ejercicio4;
 import tp02.ejercicio3.*;
 
 public class TestBalanceo {
-	public static char getCerradura(char apertura) {
+	public static char getOpuesto(char apertura) {
 		switch (apertura) {
 			case '(': return ')';
 			case '[': return ']';
@@ -29,9 +29,9 @@ public class TestBalanceo {
 			if (esApertura(ch)) {
 				pila.apilar(ch);
 			}
-			else { // si no es un espacio ni caracter de apertura, entonces es un caracter de cerradura.
+			else { // si no es un espacio ni caracter de apertura, entonces es un caracter opuesto.
 				Character ultimaApertura = pila.desapilar(); // obtener la ultima apertura
-				if (ch != getCerradura(ultimaApertura)) { // si no es la cerradura correcta para la ultima apertura, el string no esta balanceado.
+				if (ch != getOpuesto(ultimaApertura)) { // si no es el opuesto correcto para la ultima apertura, el string no esta balanceado.
 					return false;
 				}
 			}
