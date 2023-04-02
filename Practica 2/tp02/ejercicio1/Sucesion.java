@@ -1,6 +1,4 @@
-package Ej1;
-
-import tp02.ejercicio1.*;
+package tp02.ejercicio1;
 
 public class Sucesion {
 	ListaDeEnterosEnlazada lista = new ListaDeEnterosEnlazada();

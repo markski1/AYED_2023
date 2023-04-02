@@ -1,9 +1,7 @@
-package Ej1;
+package tp02.ejercicio1;
 
-import tp02.ejercicio1.*;
-
-public class TestListaDeEnterosConArreglos {
-	private static ListaDeEnterosConArreglos lista = new ListaDeEnterosConArreglos();
+public class TestListaDeEnterosEnlazada {
+	private static ListaDeEnterosEnlazada lista = new ListaDeEnterosEnlazada();
 	
 	public static void main(String[] args) {
 		for (String arg : args) {

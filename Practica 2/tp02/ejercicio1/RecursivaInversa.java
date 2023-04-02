@@ -1,6 +1,4 @@
-package Ej1;
-
-import tp02.ejercicio1.*;
+package tp02.ejercicio1;
 
 public class RecursivaInversa {
 	public static void ImprimirInversaRecursiva(ListaDeEnterosConArreglos lista, int pos) {

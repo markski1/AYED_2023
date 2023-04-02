@@ -1,7 +1,6 @@
-package Ej1;
+package tp02.ejercicio1;
 
 import java.util.Scanner;
-import tp02.ejercicio1.*;
 
 public class MainSucesion {
 	public static void main(String[] args) {
