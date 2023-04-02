@@ -19,31 +19,39 @@ public class TestBalanceo {
 		return false;
 	}
 	
-	public static void main(String[] args) {
+	public static boolean esBalanceado(String str) {
 		PilaGenerica<Character> pila = new PilaGenerica<Character>();
+
+		// convertir el string en arreglo de caracteres, y recorrer caracter por caracter
+		for (char ch : str.toCharArray()) { 
+			if (ch == ' ') continue;
+			
+			if (esApertura(ch)) {
+				pila.apilar(ch);
+			}
+			else { // si no es un espacio ni caracter de apertura, entonces es un caracter de cerradura.
+				Character ultimaApertura = pila.desapilar(); // obtener la ultima apertura
+				if (ch != getCerradura(ultimaApertura)) { // si no es la cerradura correcta para la ultima apertura, el string no esta balanceado.
+					return false;
+				}
+			}
+		}
 		
+		// si el for termina sin retornar false, entonces esta balanceado.
+		return true;
+	}
+	
+	public static void main(String[] args) {
 		if (args.length < 1) {
 			System.out.println("Proveer al menos un string por argumentos.");
 			return;
 		}
 		
+		boolean balanceado;
+		
 		for (String str : args) {
 			System.out.println("Entrada: " + str);
-			boolean balanceado = true;
-			for (char ch : str.toCharArray()) {
-				if (ch == ' ') continue; // ignorar espacios
-				
-				if (esApertura(ch)) {
-					pila.apilar(ch); // apilar caracteres de apertura
-				}
-				else { // si no es ninguna de las anteriores, entonces este caracter es una cerradura
-					Character ultimaApertura = pila.desapilar(); // obtener la ultima apertura
-					if (ch != getCerradura(ultimaApertura)) { // si este caracter no es la cerradura correcta para la ultima apertura, el string no esta balanceado.
-						balanceado = false;
-						break;
-					}
-				}
-			}
+			balanceado = esBalanceado(str);
 			System.out.println("Balanceado? " + balanceado + "\n");
 		}
 	}
