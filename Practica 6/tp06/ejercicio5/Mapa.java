@@ -16,7 +16,7 @@ public class Mapa {
 		
 		boolean[] marcas = new boolean[mapaCiudades.listaDeVertices().tamanio() + 1];
 		
-		Vertice<String> comienzo = encontrarCiudad(ciudad1); 
+		Vertice<String> comienzo = getCiudad(ciudad1); 
 		
 		if (comienzo == null)
 			return camino;
@@ -32,14 +32,14 @@ public class Mapa {
 		
 		boolean[] marcas = new boolean[mapaCiudades.listaDeVertices().tamanio() + 1];
 		
-		Vertice<String> comienzo = encontrarCiudad(ciudad1); 
+		Vertice<String> comienzo = getCiudad(ciudad1); 
 		
 		if (comienzo == null)
 			return camino;
 		
 		ciudades.comenzar();
 		while (!ciudades.fin()) {
-			Vertice<String> excepcion = encontrarCiudad(ciudades.proximo());
+			Vertice<String> excepcion = getCiudad(ciudades.proximo());
 			if (excepcion != null)
 				marcas[excepcion.getPosicion()] = true;
 		}
@@ -48,7 +48,40 @@ public class Mapa {
 		
 		return camino;
 	}
+	
+	public ListaGenerica<String> caminoMasCorto(String ciudad1, String ciudad2) {
+		// es lo mismo que menor carga combustible, solo que suponiendo un tanque infinito.
+		return caminoConMenorCargaDeCombustible(ciudad1, ciudad2, Integer.MAX_VALUE);
+	}
+	
+	public ListaGenerica<String> caminoConMenorCargaDeCombustible(String ciudad1, String ciudad2, int tanqueAuto) {
+		Vertice<String> comienzo = getCiudad(ciudad1);
+		Vertice<String> destino = getCiudad(ciudad2);
+		
+		if (comienzo == null || destino == null)
+			return new ListaEnlazadaGenerica<>();
+		
+		Dijkstra<String> dijkstra = new Dijkstra<>(mapaCiudades, comienzo, tanqueAuto);
+		
+		return dijkstra.getCamino(destino);
+	}
 
+	public ListaGenerica<String> caminoSinCargarCombustible(String ciudad1, String ciudad2, int tanqueAuto) {
+		Vertice<String> comienzo = getCiudad(ciudad1);
+		Vertice<String> destino = getCiudad(ciudad2);
+		
+		if (comienzo == null || destino == null)
+			return new ListaEnlazadaGenerica<>();
+		
+		Dijkstra<String> dijkstra = new Dijkstra<>(mapaCiudades, comienzo, tanqueAuto);
+		
+		// si la distancia que dijkstra encuentra es mayor al tanque del auto, no hay nada.
+		// el ejercicio requiere devolver vacio.
+		if (dijkstra.distanciaHasta(destino) > tanqueAuto)
+			return new ListaEnlazadaGenerica<>();
+		
+		return dijkstra.getCamino(destino);
+	}
 	
 	private void buscarCamino(Vertice<String> comienzo, String ciudad2, boolean[] marcas, ListaGenerica<String> camino, ListaGenerica<String> caminoAux) {
 		marcas[comienzo.getPosicion()] = true;
@@ -81,7 +114,7 @@ public class Mapa {
 			camino.agregarFinal(caminoAux.proximo());
 	}
 
-	private Vertice<String> encontrarCiudad(String ciudad) {
+	private Vertice<String> getCiudad(String ciudad) {
 		ListaGenerica<Vertice<String>> listaCiudades = mapaCiudades.listaDeVertices();
 		
 		listaCiudades.comenzar();
