@@ -11,7 +11,7 @@ public class VisitaOslo {
 			
 		ListaGenerica<String> camino = new ListaEnlazadaGenerica<>();
 		ListaGenerica<Vertice<String>> listaLugares = grafo.listaDeVertices();
-		ListaGenerica<String> resultado = new ListaEnlazadaGenerica<>();
+		ListaGenerica<String> resultado = null;
 		
 		boolean[] check = new boolean[listaLugares.tamanio() + 1];
 		
@@ -69,6 +69,10 @@ public class VisitaOslo {
 					camino.agregarFinal(v2.dato());
 					distancia += peso;
 					dfs (check, i, camino, destino, restringidos, resultado, maxTiempo, distancia);
+					
+					if (resultado != null)
+						return;
+					
 					camino.eliminarEn(camino.tamanio());
 					distancia -= peso;
 					check[pos] = false;
